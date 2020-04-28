@@ -7,6 +7,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'calcapp';
+
   // Declaracion de variables 
   actual = '0';
   resultado = '0';
@@ -16,6 +17,7 @@ export class AppComponent {
   waitForSecondNumber = false;
 
   
+//Metodo para leer cada tecla que se pulse en la calculadora
   public getNumber(v){
     console.log(v);
     if(this.waitForSecondNumber){
@@ -33,6 +35,8 @@ export class AppComponent {
     }
   }
 
+
+//Metodo para borrar los numeros que se vayan digitando
   public delNumber(){
 
     var sizeActual= this.actual.length; 
@@ -52,12 +56,15 @@ export class AppComponent {
 
   }
 
-  getDecimal(){
+  //Metodo para obtener el decimal y validar que no se repitan los puntos
+ public getDecimal(){
     if(!this.actual.includes('.')){
         this.actual += '.'; 
     }
   }
 
+
+  //Metodo que realiza el calculo, se coloca privado ya que es un metodo que solo se usa en esta clase
   private doCalculation(op , secondOp){
     switch (op){
       case '+':
@@ -76,6 +83,8 @@ export class AppComponent {
       return secondOp;
     }
   }
+
+  //Metodo que obtiene el operador y que realiza la operacion
   public getOperation(op){
     console.log(op);
 
@@ -85,7 +94,7 @@ export class AppComponent {
       this.prep=this.firstOperand+op;
 
     }else if(this.operator){
-      const result = this.doCalculation(this.operator , Number(this.actual))
+      const result = this.doCalculation(this.operator , Number(this.actual));
 
       var sizeResult=String(result).length;
       if( sizeResult>5){
@@ -102,11 +111,9 @@ export class AppComponent {
     this.operator=op;
     this.waitForSecondNumber = true;
    
-
-    console.log(this.firstOperand);
- 
   }
 
+  //Metodo que inicializa todas las variables y las coloca a su estado inicial
   public clear(){
     this.actual = '0';
     this.resultado = '0';
